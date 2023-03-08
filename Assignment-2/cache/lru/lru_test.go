@@ -4,13 +4,14 @@ import (
 	"testing"
 )
 
+// Test for LRU Insert function
 func TestLRUCache_Insert(t *testing.T) {
 	type fields struct {
 		cap int
 	}
 	type args struct {
-		s int
-		t int
+		key   int
+		value int
 	}
 	tests := []struct {
 		name   string
@@ -25,28 +26,28 @@ func TestLRUCache_Insert(t *testing.T) {
 			},
 			args: []args{
 				{
-					s: 10,
-					t: 13,
+					key:   10,
+					value: 13,
 				},
 				{
-					s: 8,
-					t: 5,
+					key:   8,
+					value: 5,
 				},
 				{
-					s: 9,
-					t: 10,
+					key:   9,
+					value: 10,
 				},
 				{
-					s: 2,
-					t: 19,
+					key:   2,
+					value: 19,
 				},
 				{
-					s: 17,
-					t: 5,
+					key:   17,
+					value: 5,
 				},
 				{
-					s: 9,
-					t: 25,
+					key:   9,
+					value: 25,
 				},
 			},
 		},
@@ -55,105 +56,35 @@ func TestLRUCache_Insert(t *testing.T) {
 			fields: fields{
 				cap: -1,
 			},
-			args: []args{
-				// {
-				// 	s: 10,
-				// 	t: 13,
-				// },
-				// {
-				// 	s: 8,
-				// 	t: 5,
-				// },
-				// {
-				// 	s: 9,
-				// 	t: 10,
-				// },
-				// {
-				// 	s: 2,
-				// 	t: 19,
-				// },
-				// {
-				// 	s: 17,
-				// 	t: 5,
-				// },
-				// {
-				// 	s: 9,
-				// 	t: 25,
-				// },
-			},
+			args: []args{},
 		},
-		// {
-		// 	name: "test2",
-		// 	fields: fields{
-		// 		cap: 6,
-		// 	},
-		// 	args: args{
-
-		// 	},
-		// },
-		// {
-		// 	name: "test3",
-		// 	fields: fields{
-		// 		cap: 6,
-		// 	},
-		// 	args: args{
-		// 		s: 8,
-		// 		t: 5,
-		// 	},
-		// },
-		// {
-		// 	name: "test4",
-		// 	fields: fields{
-		// 		cap: 6,
-		// 	},
-		// 	args: args{
-		// 		s: 9,
-		// 		t: 10,
-		// 	},
-		// },
-		// {
-		// 	name: "test5",
-		// 	fields: fields{
-		// 		cap: 6,
-		// 	},
-		// 	args: args{
-		// 		s: 2,
-		// 		t: 19,
-		// 	},
-		// },
-		// {
-		// 	name: "test6",
-		// 	fields: fields{
-		// 		cap: 6,
-		// 	},
-		// 	args: args{
-		// 		s: 17,
-		// 		t: 5,
-		// 	},
-		// },
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			c := CreateNewLRUCache(tt.fields.cap)
 			for _, ele := range tt.args {
-				c.Insert(ele.s, ele.t)
+				c.Insert(ele.key, ele.key)
 			}
 		})
 	}
 }
+
+// Test for LRU Get function
+
 func TestLRUCache_Get(t *testing.T) {
 	type fields struct {
 		cap int
 	}
 	type args struct {
-		s int
+		key   int
+		value int
 	}
 
 	tests := []struct {
 		name   string
 		fields fields
 		args   []args
-		want   int
+		want   []int
 	}{
 		// TODO: Add test cases.
 		{
@@ -163,60 +94,33 @@ func TestLRUCache_Get(t *testing.T) {
 			},
 			args: []args{
 				{
-					s: 10,
-					t: 13,
+					key:   10,
+					value: 13,
 				},
 				{
-					s: 8,
-					t: 5,
+					key:   8,
+					value: 5,
 				},
 				{
-					s: 9,
-					t: 10,
+					key:   9,
+					value: 10,
 				},
 				{
-					s: 2,
-					t: 19,
+					key:   2,
+					value: 19,
 				},
 				{
-					s: 17,
-					t: 5,
+					key:   17,
+					value: 5,
 				},
 				{
-					s: 9,
-					t: 25,
+					key:   9,
+					value: 25,
 				},
 			},
-		},
-		{
-			name: "test2",
-			fields: fields{
-				cap: 6,
+			want: []int{
+				-1, -1, 25, 19, 5, 25,
 			},
-			args: args{
-				s: 9,
-			},
-			want: 10,
-		},
-		{
-			name: "test3",
-			fields: fields{
-				cap: 6,
-			},
-			args: args{
-				s: 2,
-			},
-			want: 19,
-		},
-		{
-			name: "test4",
-			fields: fields{
-				cap: 6,
-			},
-			args: args{
-				s: 67,
-			},
-			want: -1,
 		},
 	}
 
@@ -225,12 +129,17 @@ func TestLRUCache_Get(t *testing.T) {
 			c := CreateNewLRUCache(tt.fields.cap)
 
 			//insert
-			c.Insert(tt.args.s, tt.want)
+			for _, ele := range tt.args {
+				c.Insert(ele.key, ele.value)
+			}
 
 			// Get and verify code
-			if got := c.Get(tt.args.s); got != tt.want {
-				t.Errorf("LRUCache.get() = %v, want %v", got, tt.want)
+			for i, ele := range tt.args {
+				if got := c.Get(ele.key); got != tt.want[i] {
+					t.Errorf("LRUCache.get() = %v, want %v", got, tt.want[i])
+				}
 			}
+
 		})
 	}
 }

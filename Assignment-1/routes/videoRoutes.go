@@ -7,6 +7,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//all the requests will sendfrom this function
+
 func VideoRoutes(ir *gin.Engine) {
 	repository := repositories.CreateInMemoryVideoRepository()
 	service := services.CreateVideoService(repository)

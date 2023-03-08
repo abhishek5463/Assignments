@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	url1 := "/Users/abhishek.ak/Downloads/untitled folder/i-card.pdf"
+	url1 := "https://filesamples.com/samples/video/mp4/sample_960x400_ocean_with_audio.mp4"
 	url2 := "https://filesamples.com/samples/video/mp4/sample_1280x720_surfing_with_audio.mp4"
 	downloader1 := downloader.NewDownlaoder(url1)
 	downloader2 := downloader.NewDownlaoder(url2)
@@ -27,7 +27,7 @@ func main() {
 		log.Fatal(err)
 	}
 	zipper := zip.New()
-	r3, err := zipper.Archive([]string{"f1.pdf", "f2.mp4"}, r1, r2)
+	r3, err := zipper.Archive([]string{"f1.mp4", "f2.mp4"}, r1, r2)
 	if err != nil {
 		log.Fatal(err)
 	}

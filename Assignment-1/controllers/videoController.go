@@ -17,6 +17,8 @@ func CreateVideoController(vidSer services.VideoService) *VideoController {
 	}
 }
 
+// funtion to increment count of video with a given video id
+
 func (c *VideoController) IncrementViewCount() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		vars := ctx.Params
@@ -24,6 +26,9 @@ func (c *VideoController) IncrementViewCount() gin.HandlerFunc {
 		c.vidSer.IncrementVideoViewCount(videoId)
 	}
 }
+
+// function to getting the count of any video with a given id
+
 func (c *VideoController) GetVideoCount() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		vars := ctx.Params

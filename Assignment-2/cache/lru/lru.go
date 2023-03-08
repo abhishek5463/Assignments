@@ -18,6 +18,7 @@ type LRUCache struct {
 	redis cache.Cache
 }
 
+// Creating new object of LRU cache
 func CreateNewLRUCache(size int) cache.Cache {
 	return &LRUCache{
 		cap:   size,

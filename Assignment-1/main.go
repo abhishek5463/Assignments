@@ -7,6 +7,8 @@ import (
 
 const PORT = "8081"
 
+// main function
+
 func main() {
 	router := gin.New()
 	routes.VideoRoutes(router)

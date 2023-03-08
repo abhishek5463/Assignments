@@ -6,6 +6,7 @@ import (
 	"github.com/abhishek5463/assignment-1/repositories"
 )
 
+// unit tests for  IncrementVideoCount function
 func TestVideoService_IncrementVideoViewCount(t *testing.T) {
 	type args struct {
 		videoId string
@@ -39,6 +40,8 @@ func TestVideoService_IncrementVideoViewCount(t *testing.T) {
 		})
 	}
 }
+
+//unit tests for  GetVideoCount function
 
 func TestVideoService_GetVideoViewCount(t *testing.T) {
 	type args struct {

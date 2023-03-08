@@ -2,6 +2,8 @@ package services
 
 import "github.com/abhishek5463/assignment-1/repositories"
 
+// all the services are assembled here
+
 type VideoService struct {
 	vidRepo repositories.VideoRepository
 }

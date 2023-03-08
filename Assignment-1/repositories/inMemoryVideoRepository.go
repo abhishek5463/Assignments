@@ -1,5 +1,7 @@
 package repositories
 
+//implementation of Get and Insert methods of interface videoRepository for in-memory
+
 type InMemoryVideoRepository struct {
 	videoMap map[string]int
 }
