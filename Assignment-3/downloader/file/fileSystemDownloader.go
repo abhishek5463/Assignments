@@ -13,6 +13,9 @@ type FileSystemDownloader struct {
 func CreateNewFileSyastemDownloader(uriPath string) *FileSystemDownloader {
 	return &FileSystemDownloader{uri: uriPath}
 }
+
+//implementation of Downloader for downloading from local 
+
 func (downlaoder *FileSystemDownloader) Download() (io.Reader, error) {
 	reader, err := os.Open(downlaoder.uri)
 	if err != nil {

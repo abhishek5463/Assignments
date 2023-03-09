@@ -13,6 +13,8 @@ type UrlDownloader struct {
 func CreateNewUrlDownloader(uriPath string) *UrlDownloader {
 	return &UrlDownloader{uri: uriPath}
 }
+
+//implementation of Downloader for downloading from url
 func (downloader *UrlDownloader) Download() (io.Reader, error) {
 	resp, err := http.Get(downloader.uri)
 	if err != nil {
