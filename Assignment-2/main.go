@@ -20,8 +20,9 @@ func main() {
 	obj.Insert(4, 25)
 	fmt.Println(obj.Get(6))
 
+	fmt.Println("\nFIFO")
 	//Fifo object creation
-	fmt.Println("FIFO")
+
 	obj1 := fcache.CreateNewFifoCache(2)
 	obj1.Insert(10, 13)
 	obj1.Insert(8, 5)
